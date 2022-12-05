@@ -31,4 +31,10 @@ public class ProductController {
     {
         return ("Welcome to product edit page");
     }
+
+    @GetMapping("/view")
+    public String productview()
+    {
+        return ("Welcome to product view page");
+    }
 }
