@@ -1,46 +1,48 @@
 package com.example.productapp_backend.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.productapp_backend.dao.ProductDao;
+import com.example.productapp_backend.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 
 public class ProductController {
+
+    @Autowired
+    private ProductDao dao;
 
     @GetMapping("/")
     public String Homepage()
     {
         return ("Welcome to product app homepage");
     }
-
-    @PostMapping("/add")
-    public String productadd()
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/add",consumes = "application/json",produces = "application/json")
+    public String productadd(@RequestBody Product p)
     {
-        return ("Welcome to product add page");
+        System.out.println(p.getProductName().toString());
+        System.out.println(p.getMan_date().toString());
+        System.out.println(p.getExp_date().toString());
+        System.out.println(p.getBrand().toString());
+        System.out.println(p.getSellerName().toString());
+        System.out.println(p.getDistributorName().toString());
+        dao.save(p);
+        return ("Product added successfully");
     }
 
-    @PostMapping("/search")
-    public String productsearch()
-    {
-        return ("Welcome to product search page");
-    }
 
-    @PostMapping("/edit")
-    public String productedit()
-    {
-        return ("Welcome to product edit page");
-    }
 
+
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/view")
-    public String productview()
+    public List<Product> view()
     {
-        return ("Welcome to product view page");
+        return (List<Product>) dao.findAll();
     }
 
-    @PostMapping("/delete")
-    public String productdelete()
-    {
-        return ("Welcome to product delete page");
-    }
+
 }
