@@ -3,7 +3,7 @@ package com.example.productapp_backend.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="product")
+@Table(name="Product")
 
 public class Product {
 
